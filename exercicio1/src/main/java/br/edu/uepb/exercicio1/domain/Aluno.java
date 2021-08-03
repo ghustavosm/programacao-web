@@ -5,9 +5,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import org.hibernate.annotations.NaturalId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,28 +23,23 @@ public class Aluno {
     private Long id;
 
     @Column(name = "nome")
-    @NaturalId
     private String nome;
 
-    @Column(name = "matricula")
+    @Column(name = "matricula", unique = true)
     private String matricula;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "aluno_turma", joinColumns = @JoinColumn(name = "turma_id"), inverseJoinColumns = @JoinColumn(name = "aluno_id"))
+    @JsonIgnore
     private Set<Turma> turmas = new HashSet<>();
 
     public Aluno(String nome, String matricula, String email) {
         this.nome = nome;
         this.matricula = matricula;
         this.email = email;
-    }
-
-    @JsonBackReference
-    public Set<Turma> getTurmas() {
-        return turmas;
     }
 
 }

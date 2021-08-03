@@ -32,7 +32,13 @@ public class ProfessorController {
     }
 
     @PutMapping("/{id}")
-    public Professor updateProfessor(@PathVariable("id") Long id, @RequestBody Professor professor) {
+    public Professor updateProfessor(@PathVariable("id") Long id, @RequestBody Professor professorRequest) {
+        Professor professor = professorRepository.getById(id);
+        professor.setNome(professorRequest.getNome());
+        professor.setFormacao(professorRequest.getFormacao());
+        professor.setMatricula(professorRequest.getMatricula());
+        professor.setEmail(professorRequest.getEmail());
+        professor.setTurmas(professor.getTurmas());
         return professorRepository.save(professor);
     }
 

@@ -8,6 +8,7 @@ import br.edu.uepb.exercicio1.domain.Turma;
 import br.edu.uepb.exercicio1.domain.Professor;
 import br.edu.uepb.exercicio1.repository.AlunoRepository;
 import br.edu.uepb.exercicio1.repository.TurmaRepository;
+import br.edu.uepb.exercicio1.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 
@@ -16,6 +17,9 @@ public class Exercicio1Application implements CommandLineRunner {
 
     @Autowired
     private AlunoRepository alunoRepository;
+
+    @Autowired
+    private ProfessorRepository professorRepository;
 
     @Autowired
     private TurmaRepository turmaRepository;
@@ -28,24 +32,31 @@ public class Exercicio1Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         turmaRepository.deleteAllInBatch();
+        professorRepository.deleteAllInBatch();
         alunoRepository.deleteAllInBatch();
 
-        Turma turma = new Turma("WEB", "1234567");
+        Turma turma = new Turma("WEB", "201", "1234567");
 
-		Professor professor = new Professor("Ramon", "123456781", "ramon@gmail.com");
+		Professor professor = new Professor("Ramon", "Computação", "123456781", "ramon@gmail.com");
 
-        Aluno aluno1 = new Aluno("Gustavo", "123456782", "ghustavosm@gmail.com");
+        Aluno aluno1 = new Aluno("Gustavo Silva", "123456782", "ghustavosm@gmail.com");
         Aluno aluno2 = new Aluno("Luis Thiago", "123456783", "luisthiago@gmail.com");
+        Aluno aluno3 = new Aluno("Tiago Silva", "123456784", "tiagosilva@gmail.com");
 
 		turma.getProfessores().add(professor);
 		professor.getTurmas().add(turma);
 
         turma.getAlunos().add(aluno1);
-        turma.getAlunos().add(aluno2);
         aluno1.getTurmas().add(turma);
+
+        turma.getAlunos().add(aluno2);        
         aluno2.getTurmas().add(turma);
 
         turmaRepository.save(turma);
+        //alunoRepository.save(aluno1);
+        //alunoRepository.save(aluno2);
+        alunoRepository.save(aluno3);
+        //professorRepository.save(professor);
 
     }
 	
