@@ -9,29 +9,37 @@ import br.edu.uepb.exercicio1.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/professores")
+@Api(value = "Exercicio1")
 public class ProfessorController {
 
     @Autowired
     private ProfessorRepository professorRepository;
 
     @GetMapping
+    @ApiOperation(value = "Obtém uma lista de professores")
     public List<Professor> getProfessores() {
         return professorRepository.findAll();
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "Obtém um professor a partir do ID")
     public Optional<Professor> getProfessorById(@PathVariable Long id) {
         return professorRepository.findById(id);
     }
 
     @PostMapping
+    @ApiOperation(value = "Cria um professor")
     public Professor createProfessor(@RequestBody Professor professor) {
         return professorRepository.save(professor);
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(value = "Atualiza um professor")
     public Professor updateProfessor(@PathVariable("id") Long id, @RequestBody Professor professorRequest) {
         Professor professor = professorRepository.getById(id);
         professor.setNome(professorRequest.getNome());
@@ -43,6 +51,7 @@ public class ProfessorController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation(value = "Remove um professor")
     public void deleteProfessor(@PathVariable Long id) {
         professorRepository.delete(professorRepository.findById(id).get());
     }
