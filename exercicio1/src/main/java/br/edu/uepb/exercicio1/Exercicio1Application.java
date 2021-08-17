@@ -27,6 +27,8 @@ public class Exercicio1Application implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(Exercicio1Application.class, args);
 	}
+    // http://localhost:8080/
+    // http://localhost:8080/h2-console
 
     @Override
     public void run(String... args) throws Exception {
@@ -40,7 +42,7 @@ public class Exercicio1Application implements CommandLineRunner {
 		Professor professor = new Professor("Ramon", "Computação", "123456781", "ramon@gmail.com");
 
         Aluno aluno1 = new Aluno("Gustavo Silva", "123456782", "ghustavosm@gmail.com");
-        Aluno aluno2 = new Aluno("Luis Thiago", "123456783", "luisthiago@gmail.com");
+        Aluno aluno2 = new Aluno("Lucas Gabriel", "123456783", "lucasgabriel@gmail.com");
         Aluno aluno3 = new Aluno("Tiago Silva", "123456784", "tiagosilva@gmail.com");
 
 		turma.getProfessores().add(professor);

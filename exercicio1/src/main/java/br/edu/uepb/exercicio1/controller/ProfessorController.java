@@ -1,16 +1,22 @@
 package br.edu.uepb.exercicio1.controller;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import br.edu.uepb.exercicio1.domain.Professor;
-import br.edu.uepb.exercicio1.repository.ProfessorRepository;
+import br.edu.uepb.exercicio1.dto.ProfessorDTO;
+import br.edu.uepb.exercicio1.dto.GenericResponseErrorDTO;
+import br.edu.uepb.exercicio1.exceptions.ExistingSameNameException;
+import br.edu.uepb.exercicio1.mapper.ProfessorMapper;
+import br.edu.uepb.exercicio1.services.ProfessorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("/professores")
@@ -18,29 +24,48 @@ import io.swagger.annotations.ApiOperation;
 public class ProfessorController {
 
     @Autowired
-    private ProfessorRepository professorRepository;
+    private ProfessorService professorService; 
+
+    @Autowired
+    private ProfessorMapper professorMapper;
 
     @GetMapping
     @ApiOperation(value = "Obtém uma lista de professores")
-    public List<Professor> getProfessores() {
-        return professorRepository.findAll();
+    public List<ProfessorDTO> getProfessors() {
+        List<Professor> professores = professorService.listAllProfessors();
+        return professores.stream()
+                        .map(professorMapper::convertToProfessorDTO)
+                        .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Obtém um professor a partir do ID")
-    public Optional<Professor> getProfessorById(@PathVariable Long id) {
-        return professorRepository.findById(id);
+    public ResponseEntity<?> getProfessorById(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(professorMapper.convertToProfessorDTO(professorService.findById(id)), HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return ResponseEntity.badRequest().body(new GenericResponseErrorDTO(e.getMessage()));
+        }
     }
 
     @PostMapping
     @ApiOperation(value = "Cria um professor")
-    public Professor createProfessor(@RequestBody Professor professor) {
-        return professorRepository.save(professor);
+    public ResponseEntity<?> createProfessor(@RequestBody ProfessorDTO professorDTO) {
+        try {
+            Professor professor = professorMapper.convertFromProfessorDTO(professorDTO);
+            return new ResponseEntity<>(professorService.createProfessor(professor), HttpStatus.CREATED);
+        } catch (ExistingSameNameException e) {
+            return ResponseEntity.badRequest().body(new GenericResponseErrorDTO(e.getMessage()));
+        }
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "Atualiza um professor")
-    public Professor updateProfessor(@PathVariable("id") Long id, @RequestBody Professor professorRequest) {
+    public ProfessorDTO updateProfessor(@PathVariable("id") Long id, @RequestBody ProfessorDTO professorDTO) {
+        Professor professor = professorMapper.convertFromProfessorDTO(professorDTO);
+        return professorMapper.convertToProfessorDTO(professorService.updateProfessor(id, professor));
+    }
+    /*public Professor updateProfessor(@PathVariable("id") Long id, @RequestBody Professor professorRequest) {
         Professor professor = professorRepository.getById(id);
         professor.setNome(professorRequest.getNome());
         professor.setFormacao(professorRequest.getFormacao());
@@ -48,11 +73,12 @@ public class ProfessorController {
         professor.setEmail(professorRequest.getEmail());
         professor.setTurmas(professor.getTurmas());
         return professorRepository.save(professor);
-    }
+    }*/
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Remove um professor")
     public void deleteProfessor(@PathVariable Long id) {
-        professorRepository.delete(professorRepository.findById(id).get());
+        professorService.deleteProfessor(id);
     }
+    
 }

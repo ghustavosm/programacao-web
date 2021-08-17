@@ -30,15 +30,17 @@ public class Turma {
     private String codigo;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "turmas")
-    private Set<Aluno> alunos = new HashSet<>();
+    private Set<Aluno> alunos;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "turmas")
-    private Set<Professor> professores = new HashSet<>();
+    private Set<Professor> professores;
 
     public Turma(String nome, String sala, String codigo) {
         this.nome = nome;
         this.sala = sala;
         this.codigo = codigo;
+        this.alunos = new HashSet<>();
+        this.professores = new HashSet<>();
     }
     
 }

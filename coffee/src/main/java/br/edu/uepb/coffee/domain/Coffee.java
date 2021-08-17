@@ -25,7 +25,11 @@ public class Coffee {
     @Column(name = "name")
     private String name;
 
-    public Coffee(String name) {
+    @Column(name = "price")
+    private double price;
+
+    public Coffee(String name, double price) {
         this.name = name;
+        this.price = price;
     }
 }

@@ -34,12 +34,13 @@ public class Aluno {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "aluno_turma", joinColumns = @JoinColumn(name = "turma_id"), inverseJoinColumns = @JoinColumn(name = "aluno_id"))
     @JsonIgnore
-    private Set<Turma> turmas = new HashSet<>();
+    private Set<Turma> turmas;
 
     public Aluno(String nome, String matricula, String email) {
         this.nome = nome;
         this.matricula = matricula;
         this.email = email;
+        this.turmas = new HashSet<>();
     }
 
 }
