@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
 import javassist.NotFoundException;
 
 @RestController
-@RequestMapping("/turmas")
+@RequestMapping(value = "/turmas", produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8")
 @Api(value = "Exercicio1")
 public class TurmaController {
 
