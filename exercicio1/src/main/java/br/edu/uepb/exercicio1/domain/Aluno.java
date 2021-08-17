@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "alunos")
-public class Aluno {
+public class Aluno extends User {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,15 +31,23 @@ public class Aluno {
     @Column(name = "email", unique = true)
     private String email;
 
+    @Column(name = "username", unique = true)
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "aluno_turma", joinColumns = @JoinColumn(name = "turma_id"), inverseJoinColumns = @JoinColumn(name = "aluno_id"))
     @JsonIgnore
     private Set<Turma> turmas;
 
-    public Aluno(String nome, String matricula, String email) {
+    public Aluno(String nome, String matricula, String email, String username, String password) {
         this.nome = nome;
         this.matricula = matricula;
         this.email = email;
+        this.username = username;
+        this.password = password;
         this.turmas = new HashSet<>();
     }
 

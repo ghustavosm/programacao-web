@@ -40,11 +40,11 @@ public class Exercicio1Application implements CommandLineRunner {
 
         Turma turma = new Turma("WEB", "201", "1234567");
 
-		Professor professor = new Professor("Ramon", "Computação", "123456781", "ramon@gmail.com");
+		Professor professor = new Professor("Ramon", "Computação", "123456781", "ramon@gmail.com", "ramon", "1234");
 
-        Aluno aluno1 = new Aluno("Gustavo Silva", "123456782", "ghustavosm@gmail.com");
-        Aluno aluno2 = new Aluno("Lucas Gabriel", "123456783", "lucasgabriel@gmail.com");
-        Aluno aluno3 = new Aluno("Tiago Silva", "123456784", "tiagosilva@gmail.com");
+        Aluno aluno1 = new Aluno("Gustavo Silva", "123456782", "ghustavosm@gmail.com", "gustavo", "1234");
+        Aluno aluno2 = new Aluno("Lucas Gabriel", "123456783", "lucasgabriel@gmail.com", "lucas", "1234");
+        Aluno aluno3 = new Aluno("Tiago Silva", "123456784", "tiagosilva@gmail.com", "tiago", "1234");
 
 		turma.getProfessores().add(professor);
 		professor.getTurmas().add(turma);
