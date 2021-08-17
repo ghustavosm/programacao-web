@@ -9,15 +9,15 @@ import br.edu.uepb.exercicio1.dto.ProfessorDTO;
 public class ProfessorMapper {
 
     @Autowired
-    private ModelMapper professorModelMapper;
+    private ModelMapper modelMapper;
     
     public ProfessorDTO convertToProfessorDTO(Professor professor) {
-        ProfessorDTO professorDTO = professorModelMapper.map(professor, ProfessorDTO.class);
+        ProfessorDTO professorDTO = modelMapper.map(professor, ProfessorDTO.class);
         return professorDTO;
     }
 
     public Professor convertFromProfessorDTO(ProfessorDTO professorDTO) {
-        Professor professor = professorModelMapper.map(professorDTO, Professor.class);    
+        Professor professor = modelMapper.map(professorDTO, Professor.class);    
         return professor;
     }
 

@@ -13,13 +13,11 @@ public class UserMapper {
 
     public UserDTO convertToUserDTO(User user) {
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-
         return userDTO;
     }
 
     public User convertFromUserDTO(UserDTO userDTO) {
-        User user = modelMapper.map(userDTO, User.class);
-    
+        User user = modelMapper.map(userDTO, User.class);    
         return user;
     }
 }

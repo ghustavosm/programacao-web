@@ -29,6 +29,7 @@ public class Exercicio1Application implements CommandLineRunner {
 	}
     // http://localhost:8080/
     // http://localhost:8080/h2-console
+    // http://localhost:8080/swagger-ui.html
 
     @Override
     public void run(String... args) throws Exception {

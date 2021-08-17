@@ -9,15 +9,15 @@ import br.edu.uepb.exercicio1.dto.TurmaDTO;
 public class TurmaMapper {
 
     @Autowired
-    private ModelMapper turmaModelMapper;
+    private ModelMapper modelMapper;
     
     public TurmaDTO convertToTurmaDTO(Turma turma) {
-        TurmaDTO turmaDTO = turmaModelMapper.map(turma, TurmaDTO.class);
+        TurmaDTO turmaDTO = modelMapper.map(turma, TurmaDTO.class);
         return turmaDTO;
     }
 
     public Turma convertFromTurmaDTO(TurmaDTO turmaDTO) {
-        Turma turma = turmaModelMapper.map(turmaDTO, Turma.class);    
+        Turma turma = modelMapper.map(turmaDTO, Turma.class);    
         return turma;
     }
 
