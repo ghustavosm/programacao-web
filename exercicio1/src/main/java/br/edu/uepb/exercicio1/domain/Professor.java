@@ -47,11 +47,21 @@ public class Professor extends User {
 
     public Professor(String nome, String formacao, String matricula, String email, String username, String password) {
         this.nome = nome;
-        this.formacao = formacao;
         this.matricula = matricula;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.formacao = formacao;
+        this.turmas = new HashSet<>();
+    }
+
+    public Professor(User user) {
+        this.nome = user.getNome();
+        this.matricula = user.getMatricula();
+        this.email = user.getEmail();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.formacao = null;
         this.turmas = new HashSet<>();
     }
 

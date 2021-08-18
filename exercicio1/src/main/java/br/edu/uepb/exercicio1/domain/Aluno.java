@@ -51,4 +51,13 @@ public class Aluno extends User {
         this.turmas = new HashSet<>();
     }
 
+    public Aluno(User user) {
+        this.nome = user.getNome();
+        this.matricula = user.getMatricula();
+        this.email = user.getEmail();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.turmas = new HashSet<>();
+    }
+
 }

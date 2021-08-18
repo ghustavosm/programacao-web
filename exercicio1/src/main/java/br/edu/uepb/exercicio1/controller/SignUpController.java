@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.edu.uepb.exercicio1.dto.UserDTO;
 import br.edu.uepb.exercicio1.mapper.UserMapper;
@@ -23,8 +24,8 @@ public class SignUpController {
     @Autowired
     private UserMapper userMapper;
 
-    @PostMapping("/signup")
-    public void signUp(@RequestBody UserDTO userDTO){
-        userService.signUpUser(userMapper.convertFromUserDTO(userDTO));
+    @PostMapping("/signup/{tipo}")
+    public void signUp(@PathVariable("tipo") String tipo, @RequestBody UserDTO userDTO) {
+        userService.signUpUser(userMapper.convertFromUserDTO(userDTO), tipo);
     }
 }
