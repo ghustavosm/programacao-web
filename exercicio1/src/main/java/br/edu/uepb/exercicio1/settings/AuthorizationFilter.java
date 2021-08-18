@@ -40,7 +40,7 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader("Authorization");
         
         if (token != null) {
-            String user = Jwts.parser().setSigningKey("UEPBProgWeb20202MySecretKeyToGenJWTsToken".getBytes())
+            String user = Jwts.parser().setSigningKey("UEPBProgWeb20211MySecretKeyToGenJWTsToken".getBytes())
                     .parseClaimsJws(token.replace("Bearer ",""))
                     .getBody()
                     .getSubject();

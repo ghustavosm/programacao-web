@@ -46,7 +46,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                 .setSubject(((User) authResult.getPrincipal()).getUsername())
                                 .setIssuedAt(new Date(System.currentTimeMillis()))
                                 .setExpiration(new Date(System.currentTimeMillis() + 864_000_000))
-                                .signWith(SignatureAlgorithm.HS256, "UEPBProgWeb20202MySecretKeyToGenJWTsToken".getBytes())
+                                .signWith(SignatureAlgorithm.HS256, "UEPBProgWeb20211MySecretKeyToGenJWTsToken".getBytes())
                                 .compact();
                 response.addHeader("Authorization","Bearer " + token);
     }

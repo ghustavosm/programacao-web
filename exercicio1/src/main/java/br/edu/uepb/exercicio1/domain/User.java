@@ -22,15 +22,19 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "nome")
+    private String nome;
+
+    @Column(name = "matricula", unique = true)
+    private String matricula;
+
+    @Column(name = "email", unique = true)
+    private String email;
+
     @Column(name = "username")
     private String username;
     
     @Column(name = "password")
     private String password;
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 
 }

@@ -25,9 +25,6 @@ public class Professor extends User {
     @Column(name = "nome")
     private String nome;
 
-    @Column(name = "formacao")
-    private String formacao;
-
     @Column(name = "matricula", unique = true)
     private String matricula;
 
@@ -39,6 +36,9 @@ public class Professor extends User {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "formacao")
+    private String formacao;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "professor_turma", joinColumns = @JoinColumn(name = "turma_id"), inverseJoinColumns = @JoinColumn(name = "professor_id"))
