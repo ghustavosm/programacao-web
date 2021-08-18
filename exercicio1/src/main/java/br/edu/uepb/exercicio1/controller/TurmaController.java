@@ -3,20 +3,23 @@ package br.edu.uepb.exercicio1.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/*import br.edu.uepb.exercicio1.domain.Aluno;
+import br.edu.uepb.exercicio1.domain.Aluno;
 import br.edu.uepb.exercicio1.dto.AlunoDTO;
 import br.edu.uepb.exercicio1.mapper.AlunoMapper;
 import br.edu.uepb.exercicio1.services.AlunoService;
+import br.edu.uepb.exercicio1.repository.AlunoRepository;
 
 import br.edu.uepb.exercicio1.domain.Professor;
 import br.edu.uepb.exercicio1.dto.ProfessorDTO;
 import br.edu.uepb.exercicio1.mapper.ProfessorMapper;
-import br.edu.uepb.exercicio1.services.ProfessorService;*/
+import br.edu.uepb.exercicio1.services.ProfessorService;
+import br.edu.uepb.exercicio1.repository.ProfessorRepository;
 
 import br.edu.uepb.exercicio1.domain.Turma;
 import br.edu.uepb.exercicio1.dto.TurmaDTO;
 import br.edu.uepb.exercicio1.mapper.TurmaMapper;
 import br.edu.uepb.exercicio1.services.TurmaService;
+import br.edu.uepb.exercicio1.repository.TurmaRepository;
 
 import br.edu.uepb.exercicio1.dto.GenericResponseErrorDTO;
 import br.edu.uepb.exercicio1.exceptions.ExistingSameNameException;
@@ -40,17 +43,14 @@ public class TurmaController {
     @Autowired
     private TurmaMapper turmaMapper;
 
-    /*@Autowired
-    private AlunoService alunoService; 
+    @Autowired
+    private AlunoRepository alunoRepository;
 
     @Autowired
-    private AlunoMapper alunoMapper;
+    private ProfessorRepository professorRepository; 
 
     @Autowired
-    private ProfessorService professorService; 
-
-    @Autowired
-    private ProfessorMapper professorMapper;*/
+    private TurmaRepository turmaRepository; 
 
     @GetMapping
     @ApiOperation(value = "Obtém uma lista de turmas")
@@ -97,7 +97,7 @@ public class TurmaController {
         return turmaRepository.save(turma);
     }*/
 
-    /*@PutMapping("/{turmaId}/matricularAluno/{alunoId}")
+    @PutMapping("/{turmaId}/matricularAluno/{alunoId}")
     @ApiOperation(value = "Matricula um aluno em uma turma")
     public String matricularAluno(@PathVariable("turmaId") Long turmaId, @PathVariable("alunoId") Long alunoId, @RequestBody Turma turmaRequest) {
         Turma turma = turmaRepository.getById(turmaId);
@@ -117,7 +117,7 @@ public class TurmaController {
         professor.getTurmas().add(turma);
         professorRepository.save(professor);
         return "Professor vinculado com sucesso!";
-    }*/
+    }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Remove uma turma")
