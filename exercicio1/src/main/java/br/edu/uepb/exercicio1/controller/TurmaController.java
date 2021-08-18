@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.edu.uepb.exercicio1.domain.Aluno;
-import br.edu.uepb.exercicio1.dto.AlunoDTO;
-import br.edu.uepb.exercicio1.mapper.AlunoMapper;
-import br.edu.uepb.exercicio1.services.AlunoService;
+//import br.edu.uepb.exercicio1.dto.AlunoDTO;
+//import br.edu.uepb.exercicio1.mapper.AlunoMapper;
+//import br.edu.uepb.exercicio1.services.AlunoService;
 import br.edu.uepb.exercicio1.repository.AlunoRepository;
 
 import br.edu.uepb.exercicio1.domain.Professor;
-import br.edu.uepb.exercicio1.dto.ProfessorDTO;
-import br.edu.uepb.exercicio1.mapper.ProfessorMapper;
-import br.edu.uepb.exercicio1.services.ProfessorService;
+//import br.edu.uepb.exercicio1.dto.ProfessorDTO;
+//import br.edu.uepb.exercicio1.mapper.ProfessorMapper;
+//import br.edu.uepb.exercicio1.services.ProfessorService;
 import br.edu.uepb.exercicio1.repository.ProfessorRepository;
 
 import br.edu.uepb.exercicio1.domain.Turma;
