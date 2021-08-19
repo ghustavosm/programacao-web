@@ -65,14 +65,6 @@ public class AlunoController {
         Aluno aluno = alunoMapper.convertFromAlunoDTO(alunoDTO);
         return alunoMapper.convertToAlunoDTO(alunoService.updateAluno(id, aluno));
     }
-    /*public Aluno updateAluno(@PathVariable("id") Long id, @RequestBody Aluno alunoRequest) {
-        Aluno aluno = alunoRepository.getById(id);
-        aluno.setNome(alunoRequest.getNome());
-        aluno.setMatricula(alunoRequest.getMatricula());
-        aluno.setEmail(alunoRequest.getEmail());
-        aluno.setTurmas(aluno.getTurmas());
-        return alunoRepository.save(aluno);
-    }*/
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Remove um aluno")

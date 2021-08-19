@@ -11,6 +11,8 @@ public class AlunoDTO {
     private String nome;
     private String matricula;
     private String email;
+    private String username;
+    private String password;
     private Set<TurmaDTO> turmas;
 
 }

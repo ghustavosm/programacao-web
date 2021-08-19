@@ -3,29 +3,18 @@ package br.edu.uepb.exercicio1.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.edu.uepb.exercicio1.domain.Aluno;
-//import br.edu.uepb.exercicio1.dto.AlunoDTO;
-//import br.edu.uepb.exercicio1.mapper.AlunoMapper;
-//import br.edu.uepb.exercicio1.services.AlunoService;
-import br.edu.uepb.exercicio1.repository.AlunoRepository;
-
-import br.edu.uepb.exercicio1.domain.Professor;
-//import br.edu.uepb.exercicio1.dto.ProfessorDTO;
-//import br.edu.uepb.exercicio1.mapper.ProfessorMapper;
-//import br.edu.uepb.exercicio1.services.ProfessorService;
-import br.edu.uepb.exercicio1.repository.ProfessorRepository;
-
 import br.edu.uepb.exercicio1.domain.Turma;
 import br.edu.uepb.exercicio1.dto.TurmaDTO;
 import br.edu.uepb.exercicio1.mapper.TurmaMapper;
 import br.edu.uepb.exercicio1.services.TurmaService;
-import br.edu.uepb.exercicio1.repository.TurmaRepository;
 
 import br.edu.uepb.exercicio1.dto.GenericResponseErrorDTO;
 import br.edu.uepb.exercicio1.exceptions.ExistingSameNameException;
+import br.edu.uepb.exercicio1.exceptions.NaoEncontradoException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.annotations.Api;
@@ -42,15 +31,6 @@ public class TurmaController {
 
     @Autowired
     private TurmaMapper turmaMapper;
-
-    @Autowired
-    private AlunoRepository alunoRepository;
-
-    @Autowired
-    private ProfessorRepository professorRepository; 
-
-    @Autowired
-    private TurmaRepository turmaRepository; 
 
     @GetMapping
     @ApiOperation(value = "Obtém uma lista de turmas")
@@ -82,40 +62,31 @@ public class TurmaController {
         }
     }
 
+    @Transactional
     @PutMapping("/{id}")
     @ApiOperation(value = "Atualiza uma turma")
-    public TurmaDTO updateTurma(@PathVariable("id") Long id, @RequestBody TurmaDTO turmaDTO) {
+    public String updateTurma(@PathVariable("id") Long id, @RequestBody TurmaDTO turmaDTO) throws NaoEncontradoException {
         Turma turma = turmaMapper.convertFromTurmaDTO(turmaDTO);
-        return turmaMapper.convertToTurmaDTO(turmaService.updateTurma(id, turma));
+        turmaService.updateTurma(id, turma);
+        //return turmaMapper.convertToTurmaDTO(turmaService.updateTurma(id, turma));
+        return "Aluno atualizado com sucesso!";
     }
-    /*public Turma updateTurma(@PathVariable("id") Long id, @RequestBody Turma turmaRequest) {
-        Turma turma = turmaRepository.getById(id);
-        turma.setNome(turmaRequest.getNome());
-        turma.setSala(turmaRequest.getSala());
-        turma.setCodigo(turmaRequest.getCodigo());
-        turma.setAlunos(turma.getAlunos());
-        return turmaRepository.save(turma);
-    }*/
 
+    @Transactional
     @PutMapping("/{turmaId}/matricularAluno/{alunoId}")
     @ApiOperation(value = "Matricula um aluno em uma turma")
-    public String matricularAluno(@PathVariable("turmaId") Long turmaId, @PathVariable("alunoId") Long alunoId, @RequestBody Turma turmaRequest) {
-        Turma turma = turmaRepository.getById(turmaId);
-        Aluno aluno = alunoRepository.getById(alunoId);
-        //turma.getAlunos().add(aluno);
-        aluno.getTurmas().add(turma);
-        alunoRepository.save(aluno);
-        //turmaRepository.save(turma);
+    public String matricularAluno(@PathVariable("turmaId") Long turmaId, @PathVariable("alunoId") Long alunoId, @RequestBody TurmaDTO turmaDTO) throws NaoEncontradoException {
+        Turma turma = turmaMapper.convertFromTurmaDTO(turmaDTO);
+        turmaService.matriculaAluno(turmaId, alunoId, turma);
         return "Aluno matriculado com sucesso!";
     }
 
+    @Transactional
     @PutMapping("/{turmaId}/vincularProfessor/{professorId}")
-    @ApiOperation(value = "Vincula um professor a uma turma")
-    public String vincularProfessor(@PathVariable("turmaId") Long turmaId, @PathVariable("professorId") Long professorId, @RequestBody Turma turmaRequest) {
-        Turma turma = turmaRepository.getById(turmaId);
-        Professor professor = professorRepository.getById(professorId);
-        professor.getTurmas().add(turma);
-        professorRepository.save(professor);
+    @ApiOperation(value = "Matricula um aluno em uma turma")
+    public String vincularProfessor(@PathVariable("turmaId") Long turmaId, @PathVariable("professorId") Long professorId, @RequestBody TurmaDTO turmaDTO) throws NaoEncontradoException {
+        Turma turma = turmaMapper.convertFromTurmaDTO(turmaDTO);
+        turmaService.vinculaProfessor(turmaId, professorId, turma);
         return "Professor vinculado com sucesso!";
     }
 

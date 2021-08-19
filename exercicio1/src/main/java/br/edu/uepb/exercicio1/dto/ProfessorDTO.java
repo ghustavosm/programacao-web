@@ -12,6 +12,8 @@ public class ProfessorDTO {
     private String formacao;
     private String matricula;
     private String email;
+    private String username;
+    private String password;
     private Set<TurmaDTO> turmas;
 
 }

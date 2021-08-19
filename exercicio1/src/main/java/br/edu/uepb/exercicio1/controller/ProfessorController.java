@@ -65,15 +65,6 @@ public class ProfessorController {
         Professor professor = professorMapper.convertFromProfessorDTO(professorDTO);
         return professorMapper.convertToProfessorDTO(professorService.updateProfessor(id, professor));
     }
-    /*public Professor updateProfessor(@PathVariable("id") Long id, @RequestBody Professor professorRequest) {
-        Professor professor = professorRepository.getById(id);
-        professor.setNome(professorRequest.getNome());
-        professor.setFormacao(professorRequest.getFormacao());
-        professor.setMatricula(professorRequest.getMatricula());
-        professor.setEmail(professorRequest.getEmail());
-        professor.setTurmas(professor.getTurmas());
-        return professorRepository.save(professor);
-    }*/
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Remove um professor")

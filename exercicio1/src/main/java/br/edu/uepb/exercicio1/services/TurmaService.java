@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.uepb.exercicio1.domain.Turma;
-//import br.edu.uepb.exercicio1.domain.Aluno;
-//import br.edu.uepb.exercicio1.domain.Professor;
+import br.edu.uepb.exercicio1.domain.Aluno;
+import br.edu.uepb.exercicio1.domain.Professor;
 import br.edu.uepb.exercicio1.exceptions.ExistingSameNameException;
+import br.edu.uepb.exercicio1.exceptions.NaoEncontradoException;
 import br.edu.uepb.exercicio1.repository.TurmaRepository;
-//import br.edu.uepb.exercicio1.repository.AlunoRepository;
-//import br.edu.uepb.exercicio1.repository.ProfessorRepository;
+import br.edu.uepb.exercicio1.repository.AlunoRepository;
+import br.edu.uepb.exercicio1.repository.ProfessorRepository;
 import javassist.NotFoundException;
 
 @Service
@@ -20,11 +21,11 @@ public class TurmaService {
     @Autowired
     private TurmaRepository turmaRepository;
 
-    /*@Autowired
-    private AlunoRepository alunoRepository;*/
+    @Autowired
+    private AlunoRepository alunoRepository;
 
-    /*@Autowired
-    private ProfessorRepository professorRepository;*/
+    @Autowired
+    private ProfessorRepository professorRepository;
 
     public Turma createTurma(Turma turma) throws ExistingSameNameException {
         if (turmaRepository.findByNome(turma.getNome()).isPresent())
@@ -32,9 +33,15 @@ public class TurmaService {
         return turmaRepository.save(turma);
     }
 
-    public Turma updateTurma(Long id, Turma turma) {
-        turma.setId(id);
-        return turmaRepository.save(turma);
+    public Turma updateTurma(Long id, Turma turmaRequest) throws NaoEncontradoException {
+        return turmaRepository.findById(id).map(turma -> {
+            turma.setNome(turmaRequest.getNome() == null ? turma.getNome() : turmaRequest.getNome());
+            turma.setSala(turmaRequest.getSala() == null ? turma.getSala() : turmaRequest.getSala());
+            turma.setCodigo(turmaRequest.getCodigo() == null ? turma.getCodigo() : turmaRequest.getCodigo());
+            turma.setAlunos(turmaRequest.getAlunos() == null ? turma.getAlunos() : turmaRequest.getAlunos());
+            turma.setProfessores(turmaRequest.getProfessores() == null ? turma.getProfessores() : turmaRequest.getProfessores());
+            return turmaRepository.save(turma);
+        }).orElseThrow(() -> new NaoEncontradoException("Turma não encontrada."));
     }
 
     public List<Turma> listAllTurmas() {
@@ -50,12 +57,23 @@ public class TurmaService {
         turmaRepository.delete(turmaToDelete);
     }
 
-    /*public void matriculaAluno(Long turmaId, Long alunoId) {
-        Turma turma = turmaRepository.getById(turmaId);
-        Aluno aluno = alunoRepository.getById(alunoId);
-        //turma.getAlunos().add(aluno);
-        aluno.getTurmas().add(turma);
-        alunoRepository.save(aluno);
-        //turmaRepository.save(turma);
-    }*/
+    public Turma matriculaAluno(Long turmaId, Long alunoId, Turma turmaRequest) throws NaoEncontradoException {
+        return turmaRepository.findById(turmaId).map(turma -> {
+            Aluno aluno = alunoRepository.getById(alunoId);
+            turma.getAlunos().add(aluno);
+            aluno.getTurmas().add(turma);
+            alunoRepository.save(aluno);
+            return turmaRepository.save(turma);
+        }).orElseThrow(() -> new NaoEncontradoException("Turma não encontrada."));
+    }
+
+    public Turma vinculaProfessor(Long turmaId, Long professorId, Turma turmaRequest) throws NaoEncontradoException {
+        return turmaRepository.findById(turmaId).map(turma -> {
+            Professor professor = professorRepository.getById(professorId);
+            turma.getProfessores().add(professor);
+            professor.getTurmas().add(turma);
+            professorRepository.save(professor);
+            return turmaRepository.save(turma);
+        }).orElseThrow(() -> new NaoEncontradoException("Turma não encontrada."));
+    }
 }
