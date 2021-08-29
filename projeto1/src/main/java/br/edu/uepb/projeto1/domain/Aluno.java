@@ -46,6 +46,10 @@ public class Aluno extends User {
     @JoinColumn(name = "projeto_id")
     private Projeto projeto;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "papel_projeto")
+    private PapelProjeto papel_projeto;
+
     public Aluno(String nome, String matricula, String email, String username, String password) {
         this.nome = nome;
         this.matricula = matricula;
@@ -54,6 +58,7 @@ public class Aluno extends User {
         this.password = password;
         this.turmas = new HashSet<>();
         this.projeto = null;
+        this.papel_projeto = null;
     }
 
     public Aluno(User user) {
@@ -64,6 +69,7 @@ public class Aluno extends User {
         this.password = user.getPassword();
         this.turmas = new HashSet<>();
         this.projeto = null;
+        this.papel_projeto = null;
     }
 
 }

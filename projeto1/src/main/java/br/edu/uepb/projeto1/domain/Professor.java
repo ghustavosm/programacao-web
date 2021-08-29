@@ -48,6 +48,10 @@ public class Professor extends User {
     @OneToOne
     private Projeto projeto;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "papel_projeto")
+    private PapelProjeto papel_projeto;
+
     public Professor(String nome, String formacao, String matricula, String email, String username, String password) {
         this.nome = nome;
         this.matricula = matricula;
@@ -57,6 +61,7 @@ public class Professor extends User {
         this.formacao = formacao;
         this.turmas = new HashSet<>();
         this.projeto = null;
+        this.papel_projeto = null;
     }
 
     public Professor(User user) {
@@ -68,6 +73,7 @@ public class Professor extends User {
         this.formacao = null;
         this.turmas = new HashSet<>();
         this.projeto = null;
+        this.papel_projeto = null;
     }
 
 }
