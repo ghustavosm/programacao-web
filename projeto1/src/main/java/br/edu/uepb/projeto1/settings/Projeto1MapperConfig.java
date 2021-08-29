@@ -8,6 +8,7 @@ import br.edu.uepb.projeto1.mapper.UserMapper;
 import br.edu.uepb.projeto1.mapper.AlunoMapper;
 import br.edu.uepb.projeto1.mapper.ProfessorMapper;
 import br.edu.uepb.projeto1.mapper.TurmaMapper;
+import br.edu.uepb.projeto1.mapper.ProjetoMapper;
 
 @Configuration
 public class Projeto1MapperConfig {
@@ -35,6 +36,11 @@ public class Projeto1MapperConfig {
     @Bean
     public TurmaMapper turmaMapper() {
         return new TurmaMapper();
+    }
+
+    @Bean
+    public ProjetoMapper projetoMapper() {
+        return new ProjetoMapper();
     }
 
 }

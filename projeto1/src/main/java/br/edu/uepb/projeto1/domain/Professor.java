@@ -45,6 +45,9 @@ public class Professor extends User {
     @JsonIgnore
     private Set<Turma> turmas;
 
+    @OneToOne
+    private Projeto projeto;
+
     public Professor(String nome, String formacao, String matricula, String email, String username, String password) {
         this.nome = nome;
         this.matricula = matricula;
@@ -53,6 +56,7 @@ public class Professor extends User {
         this.password = password;
         this.formacao = formacao;
         this.turmas = new HashSet<>();
+        this.projeto = null;
     }
 
     public Professor(User user) {
@@ -63,6 +67,7 @@ public class Professor extends User {
         this.password = user.getPassword();
         this.formacao = null;
         this.turmas = new HashSet<>();
+        this.projeto = null;
     }
 
 }

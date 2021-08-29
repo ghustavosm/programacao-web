@@ -38,8 +38,6 @@ public class TurmaService {
             turma.setNome(turmaRequest.getNome() == null ? turma.getNome() : turmaRequest.getNome());
             turma.setSala(turmaRequest.getSala() == null ? turma.getSala() : turmaRequest.getSala());
             turma.setCodigo(turmaRequest.getCodigo() == null ? turma.getCodigo() : turmaRequest.getCodigo());
-            turma.setAlunos(turmaRequest.getAlunos() == null ? turma.getAlunos() : turmaRequest.getAlunos());
-            turma.setProfessores(turmaRequest.getProfessores() == null ? turma.getProfessores() : turmaRequest.getProfessores());
             return turmaRepository.save(turma);
         }).orElseThrow(() -> new NaoEncontradoException("Turma não encontrada."));
     }

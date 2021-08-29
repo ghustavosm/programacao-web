@@ -1,6 +1,6 @@
 package br.edu.uepb.exercicio3.dto;
 
-import java.util.Set;
+//import java.util.Set;
 
 import lombok.Data;
 
@@ -14,6 +14,6 @@ public class ProfessorDTO {
     private String email;
     private String username;
     private String password;
-    private Set<TurmaDTO> turmas;
+    //private Set<TurmaDTO> turmas;
 
 }

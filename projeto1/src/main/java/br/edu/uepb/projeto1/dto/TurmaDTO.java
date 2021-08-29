@@ -1,6 +1,6 @@
 package br.edu.uepb.projeto1.dto;
 
-import java.util.Set;
+//import java.util.Set;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ public class TurmaDTO {
     private String nome;
     private String sala;
     private String codigo;
-    private Set<AlunoDTO> alunos;
-    private Set<ProfessorDTO> professores;
+    /*private Set<AlunoDTO> alunos;
+    private Set<ProfessorDTO> professores;*/
 
 }

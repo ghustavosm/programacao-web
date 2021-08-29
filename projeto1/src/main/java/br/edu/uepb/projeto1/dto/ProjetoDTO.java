@@ -1,11 +1,11 @@
-package br.edu.uepb.exercicio3.dto;
+package br.edu.uepb.projeto1.dto;
 
 //import java.util.Set;
 
 import lombok.Data;
 
 @Data
-public class TurmaDTO {
+public class ProjetoDTO {
     
     private Long id;
     private String nome;

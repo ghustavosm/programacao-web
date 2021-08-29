@@ -42,6 +42,10 @@ public class Aluno extends User {
     @JsonIgnore
     private Set<Turma> turmas;
 
+    @ManyToOne
+    @JoinColumn(name = "projeto_id")
+    private Projeto projeto;
+
     public Aluno(String nome, String matricula, String email, String username, String password) {
         this.nome = nome;
         this.matricula = matricula;
@@ -49,6 +53,7 @@ public class Aluno extends User {
         this.username = username;
         this.password = password;
         this.turmas = new HashSet<>();
+        this.projeto = null;
     }
 
     public Aluno(User user) {
@@ -58,6 +63,7 @@ public class Aluno extends User {
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.turmas = new HashSet<>();
+        this.projeto = null;
     }
 
 }
