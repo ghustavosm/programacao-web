@@ -28,17 +28,18 @@ public class Projeto {
     @Column(name = "descricao")
     private String descricao;
 
-    @OneToOne
-    private Professor professor;
+    @OneToOne(cascade = {CascadeType.PERSIST})
+    @JsonIgnore
+    private Professor coordenador;
 
-    @OneToMany(mappedBy = "projeto", fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.PERSIST})
     @JsonIgnore
     private Set<Aluno> alunos;
 
-    public Projeto(String nome, String descricao, Professor professor) {
+    public Projeto(String nome, String descricao, Professor coordenador) {
         this.nome = nome;
         this.descricao = descricao;
-        this.professor = professor;
+        this.coordenador = coordenador;
         this.alunos = new HashSet<>();
     }
     
